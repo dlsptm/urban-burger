@@ -514,6 +514,74 @@ p {
   min-width: 15rem;
 }
 
+/* ---------- À propos ----------
+   Composition "split" éditoriale, plein bord : la photo occupe une
+   moitié entière de la section (pleine hauteur, sans marge ni cadre
+   arrondi) et le texte vit dans un panneau sombre en vis-à-vis.
+   Empilés en mobile/tablette, l'image passe en bandeau large. */
+
+.about {
+  background: var(--color-dark);
+  color: var(--color-cream);
+}
+
+.about__layout {
+  display: flex;
+  flex-direction: column;
+}
+
+.about__frame {
+  margin: 0;
+  background: var(--color-abyss);
+}
+
+.about__frame img {
+  width: 100%;
+  height: clamp(280px, 75vw, 460px);
+  object-fit: cover;
+  object-position: center 38%;
+  display: block;
+}
+
+.about__panel {
+  padding: clamp(2.5rem, 8vw, 4.5rem) clamp(1.5rem, 6vw, 3rem);
+}
+
+.about__panel .section-title {
+  margin-top: .6rem;
+}
+
+.about__text {
+  margin-top: 1.25rem;
+  font-size: 1rem;
+  opacity: .85;
+  max-width: 34rem;
+}
+
+.about__stat {
+  display: flex;
+  align-items: baseline;
+  gap: .85rem;
+  margin-top: clamp(2rem, 5vw, 2.75rem);
+  padding-top: clamp(2rem, 5vw, 2.75rem);
+  border-top: 1px solid rgba(242, 239, 228, .15);
+}
+
+.about__stat-number {
+  font-family: var(--font-title);
+  font-size: clamp(2.6rem, 8vw, 3.6rem);
+  line-height: 1;
+  color: var(--color-brass);
+}
+
+.about__stat-label {
+  font-size: .75rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  opacity: .8;
+}
+
 /* ---------- Signature Burgers ---------- */
 
 /* Le Double Urban Beef, mis en avant en grand, dans une carte
@@ -1003,6 +1071,27 @@ p {
 
 /* ---------- ~ Tablette ---------- */
 @media (min-width: 721px) {
+  .about__layout {
+    flex-direction: row;
+    min-height: 30rem;
+  }
+
+  .about__frame,
+  .about__panel {
+    flex: 1 1 50%;
+    min-width: 0;
+  }
+
+  .about__frame img {
+    height: 100%;
+  }
+
+  .about__panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
   .signature-featured__info,
   .signature-card__info {
     flex-direction: row;
