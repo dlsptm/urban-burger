@@ -85,4 +85,34 @@
     render();
     startAutoplay();
   });
+
+  var heroRadios = Array.prototype.slice.call(document.querySelectorAll('.hero__dot-input'));
+  if (heroRadios.length > 1) {
+    var heroTimer = null;
+
+    function heroNext() {
+      var current = heroRadios.findIndex(function (radio) { return radio.checked; });
+      var next = (current + 1) % heroRadios.length;
+      heroRadios[next].checked = true;
+    }
+
+    function stopHeroAutoplay() {
+      if (heroTimer) {
+        clearInterval(heroTimer);
+        heroTimer = null;
+      }
+    }
+
+    function startHeroAutoplay() {
+      if (reduceMotion) return;
+      stopHeroAutoplay();
+      heroTimer = setInterval(heroNext, 6000);
+    }
+
+    heroRadios.forEach(function (radio) {
+      radio.addEventListener('change', startHeroAutoplay);
+    });
+
+    startHeroAutoplay();
+  }
 })();

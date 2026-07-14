@@ -52,16 +52,28 @@
     <div class="hero__slider">
       <ul class="hero__track" aria-hidden="true">
         <li class="hero__slide">
-          <img src="assets/img/header/one.jpg" alt="" width="2400" height="1551" fetchpriority="high">
+          <picture>
+            <source media="(max-width: 720px)" srcset="assets/img/header/phone/slide-1.jpg">
+            <img src="assets/img/location.jpg" alt="" width="2400" height="1601" fetchpriority="high">
+          </picture>
         </li>
         <li class="hero__slide">
-          <img src="assets/img/header/second.jpg" alt="" width="2400" height="1551" loading="lazy">
+          <picture>
+            <source media="(max-width: 720px)" srcset="assets/img/header/phone/slide-2.jpg">
+            <img src="assets/img/header/second.jpg" alt="" width="2400" height="1551" loading="lazy">
+          </picture>
         </li>
         <li class="hero__slide">
-          <img src="assets/img/header/third.jpg" alt="" width="2400" height="1707" loading="lazy">
+          <picture>
+            <source media="(max-width: 720px)" srcset="assets/img/header/phone/slide-3.jpg">
+            <img src="assets/img/header/third.jpg" alt="" width="2400" height="1707" loading="lazy">
+          </picture>
         </li>
         <li class="hero__slide">
-          <img src="assets/img/header/fourth.jpg" alt="" width="2400" height="1551" loading="lazy">
+          <picture>
+            <source media="(max-width: 720px)" srcset="assets/img/header/phone/slide-4.jpg">
+            <img src="assets/img/header/fourth.jpg" alt="" width="2400" height="1551" loading="lazy">
+          </picture>
         </li>
       </ul>
     </div>
@@ -76,13 +88,17 @@
       <label for="hero-dot-3" class="hero__dot" aria-label="Aller à la diapositive 3"></label>
       <label for="hero-dot-4" class="hero__dot" aria-label="Aller à la diapositive 4"></label>
     </div>
+
+    <a href="#apropos" class="hero__scroll-cue" aria-label="Découvrir la suite en défilant">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v15m0 0-6-6m6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
   </section>
 
   <!-- ============ À PROPOS ============ -->
   <section class="about" id="apropos" aria-labelledby="about-title">
     <div class="about__layout">
       <figure class="about__frame">
-        <img src="assets/img/location.png" alt="L'intérieur du restaurant Urban Burger" width="1535" height="1024" loading="lazy">
+        <img src="assets/img/location.jpg" alt="L'intérieur du restaurant Urban Burger" width="2400" height="1601" loading="lazy">
       </figure>
 
       <div class="about__panel">

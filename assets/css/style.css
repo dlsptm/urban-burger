@@ -362,10 +362,11 @@ p {
 .hero {
   position: relative;
   width: 100%;
-  /* Sur mobile/tablette, une hauteur proche du format des photos
-     (au lieu d'un plein écran très haut) évite à object-fit: cover
-     de devoir rogner l'essentiel de leur largeur. */
-  height: min(135vw, 90vh);
+  /* Toujours la hauteur exacte de l'écran, quel que soit le
+     téléphone (100svh tient compte des barres d'adresse mobiles
+     qui apparaissent/disparaissent, contrairement à 100vh seul). */
+  height: 100vh;
+  height: 100svh;
   display: flex;
   align-items: flex-end;
   text-align: center;
@@ -374,9 +375,11 @@ p {
   padding-bottom: clamp(2.75rem, 7vw, 5rem);
 }
 
-/* Slider plein écran en CSS pur (aucun JavaScript) : 4 boutons radio
-   cachés + des points cliquables (label) pilotent quelle photo est
-   visible, avec un fondu doux entre deux images à chaque changement. */
+/* Slider plein écran : 4 boutons radio cachés + des points cliquables
+   (label) pilotent quelle photo est visible, avec un fondu doux entre
+   deux images. Le défilement automatique (voir assets/js/main.js) se
+   contente de cocher le radio suivant ; l'affichage reste géré par
+   ce CSS, que l'avance soit manuelle (clic) ou automatique. */
 
 .hero__dot-input {
   position: absolute;
@@ -414,6 +417,12 @@ p {
   opacity: 1;
 }
 
+.hero__slide picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .hero__slide img {
   width: 100%;
   height: 100%;
@@ -421,14 +430,19 @@ p {
   object-position: center;
 }
 
-/* Cadrage propre à chaque photo, pour garder le sujet important
-   dans le champ quel que soit le rognage : le texte en entier sur
-   la 1re, le burger central sur la 2e, un des deux milkshakes sur
-   la 3e, le burger de droite sur la 4e. */
-.hero__slide:nth-child(1) img { object-position: 57% 50%; }
-.hero__slide:nth-child(2) img { object-position: 52% 62%; }
-.hero__slide:nth-child(3) img { object-position: 22% 50%; }
-.hero__slide:nth-child(4) img { object-position: 72% 55%; }
+/* Cadrage propre à chaque photo desktop/tablette, pour garder le
+   sujet important dans le champ quel que soit le rognage : le texte
+   en entier sur la 1re, le burger central sur la 2e, un des deux
+   milkshakes sur la 3e, le burger de droite sur la 4e. En phone
+   (≤720px), des photos dédiées déjà composées au ratio de l'écran
+   sont servies via <picture> : le cadrage par défaut (center, voir
+   .hero__slide img) suffit, pas besoin de object-position custom. */
+@media (min-width: 721px) {
+  .hero__slide:nth-child(1) img { object-position: 60% 35%; }
+  .hero__slide:nth-child(2) img { object-position: 50% 62%; }
+  .hero__slide:nth-child(3) img { object-position: 24% 50%; }
+  .hero__slide:nth-child(4) img { object-position: 73% 55%; }
+}
 
 .hero__scrim {
   position: absolute;
@@ -466,6 +480,38 @@ p {
 #hero-dot-4:checked ~ .hero__dots .hero__dot:nth-child(4) {
   background: var(--color-brass);
   transform: scale(1.3);
+}
+
+/* Invitation à défiler : chevron discret qui rebondit doucement,
+   posé au-dessus des points. */
+.hero__scroll-cue {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  bottom: clamp(3.75rem, 11vw, 5rem);
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  color: var(--color-cream);
+  opacity: .8;
+  animation: hero-scroll-bounce 2.2s ease-in-out infinite;
+}
+
+.hero__scroll-cue:hover {
+  opacity: 1;
+}
+
+.hero__scroll-cue svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+@keyframes hero-scroll-bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(8px); }
 }
 
 #hero-dot-1:focus-visible ~ .hero__dots .hero__dot:nth-child(1),
@@ -1167,7 +1213,6 @@ p {
   }
 
   .hero {
-    height: 100vh;
     align-items: flex-end;
     text-align: left;
   }
